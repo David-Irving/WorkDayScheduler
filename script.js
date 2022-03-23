@@ -10,6 +10,8 @@ function realtimeClock() {
         hours + " : " + minutes + " : " + seconds;
         var t = setTimeout(realtimeClock, 500);
 }
+var saveBtn = $(".saveBtn");
+
 $("#currentDay").text(moment().format("MMM Do YYYY"));
 $(".saveBtn").on("click", function() {
         console.log(this);
@@ -37,6 +39,7 @@ $("#hour21 .description").val(localStorage.getItem("hour21"));
 $("#hour22 .description").val(localStorage.getItem("hour22"));
 $("#hour23 .description").val(localStorage.getItem("hour23"));
 
+
 function hourTracker() {
     var currentHour = moment().hour(); 
     $(".hourBlock").each(function () {
@@ -58,4 +61,12 @@ function hourTracker() {
         }
     })
 }
+
+saveBtn.on("click", function() {
+    var time = $(this).siblings(".hour").text();
+    var description = $(this).siblings(".description").val();
+    localStorage.setItem(time, description);
+    console.log( "at ", time, "you need to", description);
+});
+
 hourTracker();
