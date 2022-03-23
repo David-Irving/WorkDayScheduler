@@ -1,10 +1,23 @@
+function realtimeClock() {
+    var rtClock = new Date();
+    var hours = rtClock.getHours();
+    var minutes = rtClock.getMinutes();
+    var seconds = rtClock.getSeconds();
+    hours = ("0" + hours).slice(-2);
+    minutes = ("0" + minutes).slice(-2);
+    seconds = ("0" + seconds).slice(-2);
+    document.getElementById('clock').innerHTML = 
+        hours + " : " + minutes + " : " + seconds;
+        var t = setTimeout(realtimeClock, 500);
+}
+$("#currentDay").text(moment().format("MMM Do YYYY"));
+$(".saveBtn").on("click", function() {
+        console.log(this);
+        var text = $(this).siblings(".description").val();
+        var time = $(this).parent().attr("id");
+        localStorage.setItem(time, text);
+    })
 
-$("#hour0 .description").val(localStorage.getItem("hour0"));
-$("#hour1 .description").val(localStorage.getItem("hour1"));
-$("#hour2 .description").val(localStorage.getItem("hour2"));
-$("#hour3 .description").val(localStorage.getItem("hour3"));
-$("#hour4 .description").val(localStorage.getItem("hour4"));
-$("#hour5 .description").val(localStorage.getItem("hour5"));
 $("#hour6 .description").val(localStorage.getItem("hour6"));
 $("#hour7 .description").val(localStorage.getItem("hour7"));
 $("#hour8 .description").val(localStorage.getItem("hour8"));
@@ -23,3 +36,26 @@ $("#hour20 .description").val(localStorage.getItem("hour20"));
 $("#hour21 .description").val(localStorage.getItem("hour21"));
 $("#hour22 .description").val(localStorage.getItem("hour22"));
 $("#hour23 .description").val(localStorage.getItem("hour23"));
+
+function hourTracker() {
+    var currentHour = moment().hour(); 
+    $(".hourBlock").each(function () {
+        var blockHour = parseInt($(this).attr("id").split("hour")[1]);
+        if (blockHour < currentHour) {
+            $(this).addClass("past");
+            $(this).removeClass("future");
+            $(this).removeClass("present");
+        }
+        else if (blockHour === currentHour) {
+            $(this).removeClass("past");
+            $(this).addClass("present");
+            $(this).removeClass("future");
+        }
+        else {
+            $(this).removeClass("present");
+            $(this).removeClass("past");
+            $(this).addClass("future");
+        }
+    })
+}
+hourTracker();
