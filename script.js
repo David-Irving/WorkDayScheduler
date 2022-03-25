@@ -1,3 +1,5 @@
+// $(function(){ console.clear(); });
+
 function realtimeClock() {
     var rtClock = new Date();
     var hours = rtClock.getHours();
@@ -66,7 +68,7 @@ saveBtn.on("click", function() {
     var time = $(this).siblings(".hour").text();
     var description = $(this).siblings(".description").val();
     localStorage.setItem(time, description);
-    console.log( "at ", time, "you need to", description);
+    console.log( "at " + time.trim() + " you need to " + description);
 });
 
 hourTracker();
